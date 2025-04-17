@@ -190,9 +190,14 @@ class LimbRigToolWidget(QMayaWindow):
         self.ctrlSizeLabel.setText(f"{self.rigger.controllerSize}")
 
     def SetColorButton(self):
-        self.colorPicker = QWidget.QColorDialog()
-        self.setColorButton = QWidget.QPushButton("Set Color")
-        self.setColorButton.clicked.connect(lambda: [mc.setAttr(f"{sel}.overrideEnabled", 1), mc.setAttr(f"{sel}.overrideRGBColors", 1), mc.setAttr(f"{sel}.overrideColorRGB", color.redF(), color.greenF(), color.blueF())] if (sel := mc.ls(selection=True)[0] if mc.ls(selection=True) else None) and (color := self.colorPicker.currentColor()) else None)
+        def __init__(self):
+            super().__init__()
+            self.masterLayout = QVBoxLayout()
+            self.setLayout(self.masterLayout)
+            self.SetColorButton = QPushButton()
+            self.SetColor = QWidget.QColorDialog()
+            self.setColorButton = QWidget.QPushButton("Set Color")
+            self.setColorButton.clicked.connect(lambda: [mc.setAttr(f"{sel}.overrideEnabled", 1), mc.setAttr(f"{sel}.overrideRGBColors", 1), mc.setAttr(f"{sel}.overrideColorRGB", color.redF(), color.greenF(), color.blueF())] if (sel := mc.ls(selection=True)[0] if mc.ls(selection=True) else None) and (color := self.colorPicker.currentColor()) else None)
         
 
     def RigLimbBtnClicked(self):
