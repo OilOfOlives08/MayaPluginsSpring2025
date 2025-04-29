@@ -192,5 +192,6 @@ class LimbRigToolWidget(QMayaWindow):
         except Exception as e:
             QMessageBox.critical(self, "Error", "Wrong Selection, please select the first joint of a limb!")
 
-limbRigToolWidget = LimbRigToolWidget()
-limbRigToolWidget.show()
+def Run():
+    limbRigToolWidget = LimbRigToolWidget()
+    limbRigToolWidget.show()
