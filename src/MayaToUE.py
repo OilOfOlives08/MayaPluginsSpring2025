@@ -5,6 +5,7 @@ from PySide2.QtGui import QIntValidator, QRegExpValidator
 from PySide2.QtWidgets import QCheckBox, QFileDialog, QHBoxLayout, QLabel, QLineEdit, QListWidget, QMessageBox, QPushButton, QVBoxLayout, QWidget
 import maya.cmds as mc
 import MayaPluginsSpring2025
+import remote_execution
 
 def TryAction(action):
     def wrapper(*args, **kwargs):
@@ -91,6 +92,12 @@ class MayaToUE:
 
         command = "".join(commands)
         print(command)
+
+        remoteExc = remote_execution.RemoteExecution()
+        remoteExc.start()
+        remoteExc.open_command_connection(remoteExc.remote_nodes)
+        remoteExc.run_command(command)
+        remoteExc.stop()
 
 
     def GetAnimDirPath(self):
